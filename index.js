@@ -1,4 +1,3 @@
-
 const inquirer = require('inquirer');
 
 const questions = [
@@ -21,7 +20,21 @@ const questions = [
     type: 'input',
     name: 'description',
     message: 'Enter a brief project description:',
-  }
+  },
+  {
+    type: 'list',
+    name: 'license',
+    message: 'Choose license to be sused in the project:',
+    choices: [
+      'Apache',
+      'Academic',
+      'GNU',
+      'ISC',
+      'MIT',
+      'Mozilla',
+      'Open',
+    ]
+  },
 ];
 
 // start app here
