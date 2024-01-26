@@ -1,4 +1,6 @@
 const inquirer = require('inquirer');
+const { generateMarkdown, renderLicenseSection, renderLicenseBadge }  = require('./utils/generateMarkdown');
+const fs = require('fs');
 
 const questions = [
   {
@@ -22,6 +24,26 @@ const questions = [
     message: 'Enter a brief project description:',
   },
   {
+    type: 'input',
+    name: 'installation',
+    message: 'Enter installation instructions (separate steps by comma):',
+  },
+  {
+    type: 'input',
+    name: 'usage',
+    message: 'Enter usage information:',
+  },
+  {
+    type: 'input',
+    name: 'tests',
+    message: 'Enter test instructions:',
+  },
+  {
+    type: 'input',
+    name: 'contributing',
+    message: 'Enter contributing details (if there is any):',
+  },
+  {
     type: 'list',
     name: 'license',
     message: 'Choose license to be sused in the project:',
@@ -37,12 +59,73 @@ const questions = [
   },
 ];
 
+// TODO: Create a function to write README file
+function writeToFile(fileName, data) {
+  // destructure answers object
+  const { project, description, installation, usage, contributing, tests, license, username, email } = data;
+
+  const projectName = generateMarkdown(project);
+
+  const licenseBadge = renderLicenseBadge(license);
+  const licenseSection = renderLicenseSection(license);
+
+  // make html template
+  const readMeTemplate = `
+${projectName}
+
+${licenseBadge}<br />
+
+## Description
+${description}
+
+## Table of Contents
+
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [License](#license)
+- [Questions](#questions)
+
+## Installation
+${installation.trim().split(', ').map(item => `- ${item}`).join('\n')}
+
+## Usage
+- ${usage}
+
+## Contributing
+${contributing}
+
+## Tests
+${tests}
+
+${licenseSection}
+
+## Questions
+I'm on Github --> [${username}](https://github.com/${username})<br />
+
+Got questions? Reach out to me by send me an e-mail ${email}<br />
+  `;
+
+  fs.writeFile(fileName, readMeTemplate, (err) => {
+    if (err) {
+      console.error('Error writing to file:', err);
+    } else {
+      console.log('Answers successfully written to file:', fileName);
+    }
+  });
+}
+
 // start app here
 function init() {
   inquirer
     .prompt(questions)
     .then((answers) => {
-      console.log(answers);
+      // file path
+      const filePath = 'README.md';
+
+      // write to file
+      writeToFile(filePath, answers)
     })
     .catch((error) => {
       console.error('Error:', error);
