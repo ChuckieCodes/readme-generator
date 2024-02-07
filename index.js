@@ -122,7 +122,10 @@ function init() {
     .prompt(questions)
     .then((answers) => {
       // file path
-      const filePath = 'README.md';
+
+      // make custom name
+      const project = answers.project.split(" ").join('-');
+      const filePath = `./examples/README-${project}.md`;
 
       // write to file
       writeToFile(filePath, answers)
