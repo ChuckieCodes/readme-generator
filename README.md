@@ -34,6 +34,8 @@ None
 <br />
 This application is covered by the Apache license.
 
+## Deployment video
+https://drive.google.com/file/d/1pYy-WGwKWY1snXldTr1Trrh5CC2yz-oi/view?usp=sharing
 
 ## Questions
 I'm on Github --> [ChuckieCodes](https://github.com/ChuckieCodes)<br />
