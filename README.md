@@ -34,7 +34,7 @@ None
 <br />
 This application is covered by the Apache license.
 
-## Deployment video
+## Demonstration video
 https://drive.google.com/file/d/1pYy-WGwKWY1snXldTr1Trrh5CC2yz-oi/view?usp=sharing
 
 ## Questions
